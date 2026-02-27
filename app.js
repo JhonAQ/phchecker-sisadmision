@@ -291,49 +291,50 @@ document.addEventListener("DOMContentLoaded", () => {
     const len = binaryString.length;
     const array = new Uint8Array(len);
     for (let i = 0; i < len; i++) {
-        array[i] = binaryString.charCodeAt(i);
+      array[i] = binaryString.charCodeAt(i);
     }
 
     // Buscar marcador APP0 (JFIF)
     // El formato estandar es:
     // FF D8 (SOI)
     // FF E0 (APP0 Marker) -> Length (2 bytes) -> Identifier (5 bytes: JFIF\0) -> Version (2 bytes) -> Units (1 byte) -> Xden (2 bytes) -> Yden (2 bytes)
-    
+
     // Simplificación: Buscamos la secuencia específica de bytes "FF E0 ?? ?? 4A 46 49 46 00"
     // Esto es mucho más robusto que parsear toda la estructura si solo queremos parchear el primer APP0 JFIF.
-    
+
     let ptr = 0;
     while (ptr < len - 10) {
-        if (array[ptr] === 0xFF && array[ptr+1] === 0xE0) {
-            // Es un APP0. Verificamos si es JFIF ('JFIF\0' en offset +4)
-            if (array[ptr+4] === 0x4A && 
-                array[ptr+5] === 0x46 && 
-                array[ptr+6] === 0x49 && 
-                array[ptr+7] === 0x46 && 
-                array[ptr+8] === 0x00) {
-                    
-                    // Encontrado JFIF APP0.
-                    // Modificar Unidades a dpi (1) en offset +11
-                    array[ptr+11] = 1;
-                    
-                    // Modificar X Density en offset +12, +13
-                    array[ptr+12] = (dpi >> 8) & 0xFF;
-                    array[ptr+13] = dpi & 0xFF;
+      if (array[ptr] === 0xff && array[ptr + 1] === 0xe0) {
+        // Es un APP0. Verificamos si es JFIF ('JFIF\0' en offset +4)
+        if (
+          array[ptr + 4] === 0x4a &&
+          array[ptr + 5] === 0x46 &&
+          array[ptr + 6] === 0x49 &&
+          array[ptr + 7] === 0x46 &&
+          array[ptr + 8] === 0x00
+        ) {
+          // Encontrado JFIF APP0.
+          // Modificar Unidades a dpi (1) en offset +11
+          array[ptr + 11] = 1;
 
-                    // Modificar Y Density en offset +14, +15
-                    array[ptr+14] = (dpi >> 8) & 0xFF;
-                    array[ptr+15] = dpi & 0xFF;
-                    
-                    console.log("JFIF Header parcheado exitosamente a 300 DPI");
-                    break;
-            }
+          // Modificar X Density en offset +12, +13
+          array[ptr + 12] = (dpi >> 8) & 0xff;
+          array[ptr + 13] = dpi & 0xff;
+
+          // Modificar Y Density en offset +14, +15
+          array[ptr + 14] = (dpi >> 8) & 0xff;
+          array[ptr + 15] = dpi & 0xff;
+
+          console.log("JFIF Header parcheado exitosamente a 300 DPI");
+          break;
         }
-        ptr++;
+      }
+      ptr++;
     }
-    
+
     // Si NO se encontró un encabezado JFIF (ej. solo tiene EXIF),
     // Podríamos intentar insertar uno, pero usualmente canvas.toBlob() genera uno.
-    // Si piexif lo borró, sería raro. 
+    // Si piexif lo borró, sería raro.
     // Por ahora confiamos en que el parcheo funciona si existe.
 
     // Reconvertir a Base64
@@ -341,9 +342,9 @@ document.addEventListener("DOMContentLoaded", () => {
     // Optimización para arrays grandes usando spread puede causar stack overflow, mejor ciclo o chunking
     // Pero para imágenes pequeñas < 50kb el ciclo simple está bien
     for (let i = 0; i < len; i++) {
-        newBinary += String.fromCharCode(array[i]);
+      newBinary += String.fromCharCode(array[i]);
     }
-    
+
     return "data:image/jpeg;base64," + btoa(newBinary);
   }
 

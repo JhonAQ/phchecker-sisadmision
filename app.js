@@ -109,9 +109,9 @@ document.addEventListener("DOMContentLoaded", () => {
         minContainerWidth: 300,
         minContainerHeight: 300,
         highlight: false, // Desactivar highlight default
-        modal: true,      // Oscurecer fondo no seleccionado
-        guides: true,     // Mostrar guias
-        center: true,     // Mostrar centro
+        modal: true, // Oscurecer fondo no seleccionado
+        guides: true, // Mostrar guias
+        center: true, // Mostrar centro
       });
     };
     reader.readAsDataURL(file);

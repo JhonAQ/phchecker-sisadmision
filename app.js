@@ -50,11 +50,11 @@ document.addEventListener("DOMContentLoaded", () => {
   });
 
   function highlight() {
-    dropZone.classList.add("border-unsa-600", "bg-blue-50");
+    dropZone.classList.add("border-cyan-500", "bg-dark-700/50");
   }
 
   function unhighlight() {
-    dropZone.classList.remove("border-unsa-600", "bg-blue-50");
+    dropZone.classList.remove("border-cyan-500", "bg-dark-700/50");
   }
 
   // Manejar archivo soltado
@@ -108,6 +108,10 @@ document.addEventListener("DOMContentLoaded", () => {
         background: false, // Fondo oscuro para mejor contraste
         minContainerWidth: 300,
         minContainerHeight: 300,
+        highlight: false, // Desactivar highlight default
+        modal: true,      // Oscurecer fondo no seleccionado
+        guides: true,     // Mostrar guias
+        center: true,     // Mostrar centro
       });
     };
     reader.readAsDataURL(file);
@@ -360,8 +364,8 @@ document.addEventListener("DOMContentLoaded", () => {
     document.getElementById("final-size").textContent = `${sizeKB} KB`;
     document.getElementById("final-size").className =
       sizeBytes >= 4096 && sizeBytes <= 50 * 1024
-        ? "font-mono font-bold text-green-600"
-        : "font-mono font-bold text-red-600";
+        ? "font-mono font-bold text-green-400"
+        : "font-mono font-bold text-red-400";
 
     // Configurar botón de descarga
     btnDownload.href = finalBase64;

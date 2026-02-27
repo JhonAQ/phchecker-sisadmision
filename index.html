@@ -1,428 +1,315 @@
 <!DOCTYPE html>
-<html lang="es">
-  <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Generador de Foto Postulante UNSA | SisAdmisión</title>
+<html lang="es" class="dark">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sube tu foto | SisAdmisión</title>
     <!-- Tailwind CSS -->
     <script src="https://cdn.tailwindcss.com"></script>
     <!-- Cropper.js CSS -->
-    <link
-      rel="stylesheet"
-      href="https://cdnjs.cloudflare.com/ajax/libs/cropperjs/1.5.13/cropper.min.css"
-    />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/cropperjs/1.5.13/cropper.min.css"/>
     <!-- Google Fonts -->
-    <link
-      href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700&display=swap"
-      rel="stylesheet"
-    />
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700&display=swap" rel="stylesheet">
     <!-- Custom CSS -->
-    <link rel="stylesheet" href="styles.css" />
-
+    <link rel="stylesheet" href="styles.css">
+    
     <script>
-      tailwind.config = {
-        theme: {
-          extend: {
-            colors: {
-              unsa: {
-                50: "#eff6ff",
-                100: "#dbeafe",
-                600: "#2563eb",
-                800: "#1e40af",
-                900: "#1e3a8a",
-              },
-            },
-            fontFamily: {
-              sans: ["Inter", "sans-serif"],
-            },
-          },
-        },
-      };
+        tailwind.config = {
+            darkMode: 'class',
+            theme: {
+                extend: {
+                    fontFamily: {
+                        sans: ['"Plus Jakarta Sans"', 'sans-serif'],
+                    },
+                    colors: {
+                        dark: {
+                            900: '#0B1120', // Main background
+                            800: '#151E32', // Secondary background
+                            700: '#1E293B', // Card background
+                            border: '#334155',
+                        },
+                        accent: {
+                            cyan: '#06b6d4', // Cyan-500
+                            blue: '#3b82f6', // Blue-500
+                            glow: 'rgba(59, 130, 246, 0.5)'
+                        }
+                    },
+                    backgroundImage: {
+                        'gradient-radial': 'radial-gradient(var(--tw-gradient-stops))',
+                        'hero-glow': 'conic-gradient(from 180deg at 50% 50%, #2a8af6 0deg, #a853ba 180deg, #e92a67 360deg)',
+                    },
+                    animation: {
+                        'blob': 'blob 7s infinite',
+                        'fade-in': 'fadeIn 0.5s ease-out forwards',
+                    }
+                }
+            }
+        }
     </script>
-  </head>
-  <body class="bg-gray-50 text-gray-800 font-sans min-h-screen flex flex-col">
-    <!-- Header Institucional -->
-    <header class="bg-unsa-900 text-white shadow-lg">
-      <div
-        class="container mx-auto px-4 py-4 flex items-center justify-between"
-      >
-        <div class="flex items-center space-x-3">
-          <!-- Icono simulación logo -->
-          <svg
-            xmlns="http://www.w3.org/2000/svg"
-            class="h-8 w-8 text-yellow-500"
-            fill="none"
-            viewBox="0 0 24 24"
-            stroke="currentColor"
-          >
-            <path
-              stroke-linecap="round"
-              stroke-linejoin="round"
-              stroke-width="2"
-              d="M12 14l9-5-9-5-9 5 9 5z"
-            />
-            <path
-              stroke-linecap="round"
-              stroke-linejoin="round"
-              stroke-width="2"
-              d="M12 14l6.16-3.422a12.083 12.083 0 01.665 6.479A11.952 11.952 0 0012 20.055a11.952 11.952 0 00-6.824-2.998 12.078 12.078 0 01.665-6.479L12 14z"
-            />
-          </svg>
-          <div>
-            <h1 class="text-xl font-bold leading-tight">Validador de Fotos</h1>
-            <p class="text-xs text-gray-300">SisAdmisión UNSA</p>
-          </div>
+</head>
+<body class="bg-dark-900 text-gray-100 font-sans min-h-screen flex flex-col antialiased selection:bg-accent-cyan selection:text-white overflow-x-hidden">
+
+    <!-- Background Ambient Glow -->
+    <div class="fixed inset-0 z-[-1] overflow-hidden pointer-events-none">
+        <div class="absolute top-0 left-1/4 w-96 h-96 bg-blue-500/20 rounded-full mix-blend-screen filter blur-[100px] opacity-30 animate-blob"></div>
+        <div class="absolute top-0 right-1/4 w-96 h-96 bg-purple-500/20 rounded-full mix-blend-screen filter blur-[100px] opacity-30 animate-blob animation-delay-2000"></div>
+        <div class="absolute -bottom-32 left-1/3 w-96 h-96 bg-cyan-500/20 rounded-full mix-blend-screen filter blur-[100px] opacity-30 animate-blob animation-delay-4000"></div>
+    </div>
+
+    <!-- Header -->
+    <header class="border-b border-white/5 bg-dark-900/50 backdrop-blur-md sticky top-0 z-50">
+        <div class="container mx-auto px-6 py-4 flex items-center justify-between">
+            <div class="flex items-center gap-3">
+                <div class="relative group">
+                    <div class="absolute -inset-1 bg-gradient-to-r from-cyan-400 to-blue-500 rounded-lg blur opacity-40 group-hover:opacity-75 transition duration-200"></div>
+                    <div class="relative bg-dark-800 p-2 rounded-lg border border-white/10">
+                        <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6 text-cyan-400" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                            <rect x="3" y="3" width="18" height="18" rx="2" ry="2"></rect>
+                            <circle cx="8.5" cy="8.5" r="1.5"></circle>
+                            <polyline points="21 15 16 10 5 21"></polyline>
+                        </svg>
+                    </div>
+                </div>
+                <div>
+                    <h1 class="text-xl font-bold bg-clip-text text-transparent bg-gradient-to-r from-white to-gray-400 tracking-tight">SisAdmisión <span class="text-cyan-400">Tools</span></h1>
+                    <p class="text-xs text-gray-500 font-medium tracking-wide">POSTULANTE</p>
+                </div>
+            </div>
+            
+            <div class="hidden md:flex items-center gap-2 px-3 py-1 rounded-full bg-white/5 border border-white/5 text-xs font-medium text-gray-400">
+                <span class="w-2 h-2 rounded-full bg-green-500 shadow-[0_0_8px_rgba(34,197,94,0.6)] animate-pulse"></span>
+                Sistema Operativo
+            </div>
         </div>
-      </div>
     </header>
 
-    <main class="flex-grow container mx-auto px-4 py-8 max-w-5xl">
-      <div class="grid grid-cols-1 lg:grid-cols-3 gap-8">
-        <!-- Panel Lateral: Instrucciones -->
-        <aside class="bg-white p-6 rounded-xl shadow-md lg:col-span-1 h-fit">
-          <h2 class="text-lg font-bold text-unsa-900 mb-4 border-b pb-2">
-            Requisitos Estrictos
-          </h2>
-          <ul class="space-y-4">
-            <li class="flex items-start space-x-3">
-              <div
-                class="bg-green-100 p-2 rounded-full text-green-600 flex-shrink-0"
-              >
-                <svg
-                  xmlns="http://www.w3.org/2000/svg"
-                  class="h-5 w-5"
-                  fill="none"
-                  viewBox="0 0 24 24"
-                  stroke="currentColor"
-                >
-                  <path
-                    stroke-linecap="round"
-                    stroke-linejoin="round"
-                    stroke-width="2"
-                    d="M5 13l4 4L19 7"
-                  />
-                </svg>
-              </div>
-              <p class="text-sm">
-                <strong class="block text-gray-900">Fondo Blanco</strong>La
-                pared debe ser blanca, sin sombras.
-              </p>
-            </li>
-            <li class="flex items-start space-x-3">
-              <div
-                class="bg-green-100 p-2 rounded-full text-green-600 flex-shrink-0"
-              >
-                <svg
-                  xmlns="http://www.w3.org/2000/svg"
-                  class="h-5 w-5"
-                  fill="none"
-                  viewBox="0 0 24 24"
-                  stroke="currentColor"
-                >
-                  <path
-                    stroke-linecap="round"
-                    stroke-linejoin="round"
-                    stroke-width="2"
-                    d="M15 12a3 3 0 11-6 0 3 3 0 016 0z"
-                  />
-                  <path
-                    stroke-linecap="round"
-                    stroke-linejoin="round"
-                    stroke-width="2"
-                    d="M2.458 12C3.732 7.943 7.523 5 12 5c4.478 0 8.268 2.943 9.542 7-1.274 4.057-5.064 7-9.542 7-4.477 0-8.268-2.943-9.542-7z"
-                  />
-                </svg>
-              </div>
-              <p class="text-sm">
-                <strong class="block text-gray-900">Mirada al Frente</strong>Sin
-                lentes de sol ni gorros.
-              </p>
-            </li>
-            <li class="flex items-start space-x-3">
-              <div
-                class="bg-green-100 p-2 rounded-full text-green-600 flex-shrink-0"
-              >
-                <svg
-                  xmlns="http://www.w3.org/2000/svg"
-                  class="h-5 w-5"
-                  fill="none"
-                  viewBox="0 0 24 24"
-                  stroke="currentColor"
-                >
-                  <path
-                    stroke-linecap="round"
-                    stroke-linejoin="round"
-                    stroke-width="2"
-                    d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z"
-                  />
-                </svg>
-              </div>
-              <p class="text-sm">
-                <strong class="block text-gray-900">Plano Correcto</strong
-                >Hombros hacia arriba.
-              </p>
-            </li>
-            <li
-              class="flex items-start space-x-3 bg-red-50 p-3 rounded-lg border border-red-100"
-            >
-              <div class="text-red-500 flex-shrink-0 mt-1">
-                <svg
-                  xmlns="http://www.w3.org/2000/svg"
-                  class="h-5 w-5"
-                  viewBox="0 0 20 20"
-                  fill="currentColor"
-                >
-                  <path
-                    fill-rule="evenodd"
-                    d="M10 18a8 8 0 100-16 8 8 0 000 16zM8.707 7.293a1 1 0 00-1.414 1.414L8.586 10l-1.293 1.293a1 1 0 101.414 1.414L10 11.414l1.293 1.293a1 1 0 001.414-1.414L11.414 10l1.293-1.293a1 1 0 00-1.414-1.414L10 8.586 8.707 7.293z"
-                    clip-rule="evenodd"
-                  />
-                </svg>
-              </div>
-              <p class="text-sm text-red-700 font-bold">
-                NO SELFIES <br />
-                NO MEDIO CUERPO
-              </p>
-            </li>
-          </ul>
-
-          <div class="mt-6 pt-4 border-t text-xs text-gray-500">
-            <p>Requisitos de salida:</p>
-            <ul class="list-disc pl-4 mt-1 space-y-1">
-              <li>JPG (240x288 px)</li>
-              <li>Peso: 4kb - 50kb</li>
-              <li>300 DPI</li>
-            </ul>
-          </div>
-        </aside>
-
-        <!-- Área Principal de Trabajo -->
-        <section class="lg:col-span-2 space-y-6">
-          <!-- Paso 1: Subida -->
-          <div
-            id="upload-step"
-            class="bg-white p-8 rounded-xl shadow-md text-center transition-all duration-300"
-          >
-            <div
-              class="border-2 border-dashed border-gray-300 rounded-xl p-10 hover:border-unsa-600 hover:bg-unsa-50 cursor-pointer transition-colors relative"
-              id="drop-zone"
-            >
-              <input
-                type="file"
-                id="image-upload"
-                accept="image/*"
-                class="absolute inset-0 w-full h-full opacity-0 cursor-pointer z-10"
-              />
-
-              <div class="pointer-events-none">
-                <svg
-                  xmlns="http://www.w3.org/2000/svg"
-                  class="h-16 w-16 text-gray-400 mx-auto mb-4"
-                  fill="none"
-                  viewBox="0 0 24 24"
-                  stroke="currentColor"
-                >
-                  <path
-                    stroke-linecap="round"
-                    stroke-linejoin="round"
-                    stroke-width="2"
-                    d="M7 16a4 4 0 01-.88-7.903A5 5 0 1115.9 6L16 6a5 5 0 011 9.9M15 13l-3-3m0 0l-3 3m3-3v12"
-                  />
-                </svg>
-                <h3 class="text-lg font-medium text-gray-700">
-                  Arrastra tu foto aquí
-                </h3>
-                <p class="text-sm text-gray-500 mt-2">
-                  o haz clic para seleccionar
-                </p>
-                <p class="text-xs text-gray-400 mt-4">
-                  Formatos: JPG, PNG, HEIC
-                </p>
-              </div>
+    <main class="flex-grow container mx-auto px-4 py-8 md:py-12 max-w-6xl relative z-10">
+        
+        <!-- Hero Section Text -->
+        <div class="text-center mb-12 animate-fade-in">
+            <div class="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-gradient-to-r from-blue-500/10 to-cyan-500/10 border border-blue-500/20 text-blue-400 text-xs font-semibold mb-4">
+                <svg class="w-3 h-3" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"/></svg>
+                <span>Actualizado Norma 2026</span>
             </div>
-          </div>
-
-          <!-- Paso 2: Editor (Oculto inicialmente) -->
-          <div
-            id="editor-step"
-            class="bg-white p-6 rounded-xl shadow-md hidden"
-          >
-            <div class="flex justify-between items-center mb-4">
-              <h3 class="text-lg font-bold text-gray-800">Recorta tu foto</h3>
-              <button
-                id="btn-cancel"
-                class="text-sm text-gray-500 hover:text-red-500"
-              >
-                Cancelar
-              </button>
-            </div>
-
-            <div class="h-96 bg-gray-900 rounded-lg overflow-hidden relative">
-              <!-- Imagen para CropperJS -->
-              <img
-                id="image-to-crop"
-                class="max-w-full block"
-                alt="Foto subida"
-              />
-            </div>
-            <p class="text-sm text-gray-500 mt-2 text-center italic">
-              Ajusta el recuadro para que tu rostro quede centrado
+            <h2 class="text-4xl md:text-5xl font-bold text-white mb-4 tracking-tight">
+                Prepara tu <span class="text-transparent bg-clip-text bg-gradient-to-r from-cyan-400 to-blue-500">Fotografía Oficial</span>
+            </h2>
+            <p class="text-gray-400 max-w-2xl mx-auto text-lg leading-relaxed">
+                Herramienta de procesamiento inteligente para SisAdmisión UNSA. Recorte automático, ajuste de DPI y compresión optimizada sin perder calidad.
             </p>
+        </div>
 
-            <div class="mt-6 flex justify-center">
-              <button
-                id="btn-process"
-                class="bg-unsa-600 hover:bg-unsa-800 text-white font-bold py-3 px-8 rounded-full shadow-lg transform transition hover:scale-105 flex items-center"
-              >
-                <svg
-                  xmlns="http://www.w3.org/2000/svg"
-                  class="h-5 w-5 mr-2"
-                  fill="none"
-                  viewBox="0 0 24 24"
-                  stroke="currentColor"
-                >
-                  <path
-                    stroke-linecap="round"
-                    stroke-linejoin="round"
-                    stroke-width="2"
-                    d="M19.428 15.428a2 2 0 00-1.022-.547l-2.384-.477a6 6 0 00-3.86.517l-.318.158a6 6 0 01-3.86.517L6.05 15.21a2 2 0 00-1.806.547M8 4h8l-1 1v5.172a2 2 0 00.586 1.414l5 5c1.26 1.26.367 3.414-1.415 3.414H4.828c-1.782 0-2.674-2.154-1.414-3.414l5-5A2 2 0 009 10.172V5L8 4z"
-                  />
-                </svg>
-                Generar Foto UNSA
-              </button>
-            </div>
-          </div>
+        <div class="grid grid-cols-1 lg:grid-cols-12 gap-8 items-start">
+            
+            <!-- Panel Lateral: Requisitos (Styled as Dark Glass Card) -->
+            <aside class="lg:col-span-4 space-y-6 animate-fade-in" style="animation-delay: 100ms;">
+                <div class="glass-panel p-6 rounded-2xl border border-white/5 shadow-2xl backdrop-blur-xl relative overflow-hidden group">
+                    <!-- Decoración interna -->
+                    <div class="absolute top-0 right-0 p-4 opacity-10 group-hover:opacity-20 transition-opacity">
+                        <svg class="w-24 h-24 text-white" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1" d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z" /></svg>
+                    </div>
 
-          <!-- Paso 3: Resultado (Oculto inicialmente) -->
-          <div
-            id="result-step"
-            class="bg-white p-6 rounded-xl shadow-md hidden"
-          >
-            <h3 class="text-lg font-bold text-gray-800 mb-6 flex items-center">
-              <svg
-                xmlns="http://www.w3.org/2000/svg"
-                class="h-6 w-6 text-green-500 mr-2"
-                fill="none"
-                viewBox="0 0 24 24"
-                stroke="currentColor"
-              >
-                <path
-                  stroke-linecap="round"
-                  stroke-linejoin="round"
-                  stroke-width="2"
-                  d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"
-                />
-              </svg>
-              ¡Foto Procesada!
-            </h3>
+                    <h3 class="text-lg font-semibold text-white mb-6 flex items-center gap-2">
+                        <svg class="w-5 h-5 text-cyan-400" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2"/></svg>
+                        Reglamento Técnico
+                    </h3>
+                    
+                    <div class="space-y-4">
+                        <div class="req-item flex gap-4 p-3 rounded-xl bg-white/5 border border-white/5 hover:bg-white/10 transition-colors">
+                            <div class="w-8 h-8 rounded-lg bg-green-500/20 flex items-center justify-center flex-shrink-0 text-green-400">
+                                <svg class="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"/></svg>
+                            </div>
+                            <div>
+                                <h4 class="text-white text-sm font-medium">Fondo Blanco</h4>
+                                <p class="text-gray-400 text-xs">Pared lisa, sin sombras ni objetos.</p>
+                            </div>
+                        </div>
 
-            <div
-              class="flex flex-col md:flex-row items-center justify-center gap-8"
-            >
-              <!-- Columna: Previsualización -->
-              <div class="flex flex-col items-center">
-                <div
-                  class="border-4 border-white shadow-lg overflow-hidden"
-                  style="width: 240px; height: 288px"
-                >
-                  <img id="final-image" class="w-full h-full object-cover" />
+                        <div class="req-item flex gap-4 p-3 rounded-xl bg-white/5 border border-white/5 hover:bg-white/10 transition-colors">
+                            <div class="w-8 h-8 rounded-lg bg-green-500/20 flex items-center justify-center flex-shrink-0 text-green-400">
+                                <svg class="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z"/><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M2.458 12C3.732 7.943 7.523 5 12 5c4.478 0 8.268 2.943 9.542 7-1.274 4.057-5.064 7-9.542 7-4.477 0-8.268-2.943-9.542-7z"/></svg>
+                            </div>
+                            <div>
+                                <h4 class="text-white text-sm font-medium">Rostro Despejado</h4>
+                                <p class="text-gray-400 text-xs">Sin lentes, gorros ni cabello en la cara.</p>
+                            </div>
+                        </div>
+
+                        <div class="req-item flex gap-4 p-3 rounded-xl bg-red-500/10 border border-red-500/20 hover:bg-red-500/15 transition-colors">
+                            <div class="w-8 h-8 rounded-lg bg-red-500/20 flex items-center justify-center flex-shrink-0 text-red-400">
+                                <svg class="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"/></svg>
+                            </div>
+                            <div>
+                                <h4 class="text-red-200 text-sm font-medium">Prohibido Selfies</h4>
+                                <p class="text-red-300/70 text-xs">La foto debe ser frontal, de hombros arriba.</p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="mt-6 pt-4 border-t border-white/5">
+                        <div class="flex items-center justify-between text-xs text-gray-500 mb-2">
+                            <span>Especificaciones de Salida</span>
+                            <span class="text-cyan-400">Automático</span>
+                        </div>
+                        <div class="grid grid-cols-3 gap-2">
+                            <div class="bg-dark-900/50 p-2 rounded text-center border border-white/5">
+                                <span class="block text-white font-mono font-bold">JPG</span>
+                                <span class="text-[10px] text-gray-500">Formato</span>
+                            </div>
+                            <div class="bg-dark-900/50 p-2 rounded text-center border border-white/5">
+                                <span class="block text-white font-mono font-bold">50kb</span>
+                                <span class="text-[10px] text-gray-500">Max Peso</span>
+                            </div>
+                            <div class="bg-dark-900/50 p-2 rounded text-center border border-white/5">
+                                <span class="block text-white font-mono font-bold">300<span class="text-[8px]">DPI</span></span>
+                                <span class="text-[10px] text-gray-500">Resolución</span>
+                            </div>
+                        </div>
+                    </div>
                 </div>
-                <span class="text-xs text-gray-400 mt-2"
-                  >Previsualización Real (240x288)</span
-                >
-              </div>
+            </aside>
 
-              <!-- Columna: Detalles Técnicos -->
-              <div
-                class="bg-gray-50 p-6 rounded-lg border border-gray-200 w-full max-w-sm"
-              >
-                <h4 class="font-semibold text-gray-700 mb-4">
-                  Validación Técnica
-                </h4>
+            <!-- Área Principal (Workspace) -->
+            <section class="lg:col-span-8 space-y-6 animate-fade-in relative" style="animation-delay: 200ms;">
+                
+                <!-- Paso 1: Zona de Subida Moderna -->
+                <div id="upload-step" class="glass-panel p-1 rounded-2xl bg-gradient-to-b from-white/5 to-transparent border border-white/10 shadow-2xl">
+                    <div class="bg-dark-800 rounded-xl p-8 relative overflow-hidden group transition-all duration-300 h-96 flex items-center justify-center border border-dashed border-gray-600 hover:border-cyan-500/50 hover:bg-dark-700/50" id="drop-zone">
+                        
+                        <input type="file" id="image-upload" accept="image/*" class="absolute inset-0 w-full h-full opacity-0 cursor-pointer z-20">
+                        
+                        <!-- Glow effect on hover -->
+                        <div class="absolute inset-0 bg-cyan-500/5 opacity-0 group-hover:opacity-100 transition-opacity pointer-events-none"></div>
 
-                <ul class="space-y-3 text-sm">
-                  <li
-                    class="flex justify-between border-b border-gray-200 pb-2"
-                  >
-                    <span class="text-gray-600">Dimensiones</span>
-                    <span class="font-mono text-green-600 font-bold"
-                      >240 x 288 px</span
-                    >
-                    <!-- Siempre será exacto -->
-                  </li>
-                  <li
-                    class="flex justify-between border-b border-gray-200 pb-2"
-                  >
-                    <span class="text-gray-600">Peso (4kb - 50kb)</span>
-                    <span
-                      id="final-size"
-                      class="font-mono font-bold text-gray-800"
-                      >--- KB</span
-                    >
-                  </li>
-                  <li
-                    class="flex justify-between border-b border-gray-200 pb-2"
-                  >
-                    <span class="text-gray-600">Formato</span>
-                    <span class="font-mono text-gray-800">JPG (24 Bits)</span>
-                  </li>
-                  <li class="flex justify-between">
-                    <span class="text-gray-600">Resolución Metadatos</span>
-                    <span
-                      id="final-dpi"
-                      class="font-mono text-blue-600 font-bold"
-                      >300 DPI</span
-                    >
-                  </li>
-                </ul>
+                        <div class="text-center pointer-events-none relative z-10 transition-transform group-hover:scale-105 duration-300">
+                            <div class="w-20 h-20 bg-dark-700 rounded-full flex items-center justify-center mx-auto mb-6 shadow-lg border border-white/5 group-hover:border-cyan-500/30 group-hover:shadow-[0_0_30px_rgba(6,182,212,0.15)] transition-all">
+                                <svg class="w-8 h-8 text-cyan-400" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-8l-4-4m0 0L8 8m4-4v12"/></svg>
+                            </div>
+                            <h3 class="text-xl font-bold text-white mb-2">Sube tu fotografía</h3>
+                            <p class="text-gray-400 text-sm max-w-xs mx-auto mb-6">Arrastra y suelta tu archivo aquí, o haz clic para explorar.</p>
+                            
+                            <div class="inline-flex items-center gap-2 px-4 py-2 rounded-lg bg-white/5 border border-white/10 text-xs text-gray-400 font-mono">
+                                <span class="w-1.5 h-1.5 rounded-full bg-yellow-500"></span> JPG
+                                <span class="w-1.5 h-1.5 rounded-full bg-blue-500"></span> PNG
+                                <span class="w-1.5 h-1.5 rounded-full bg-purple-500"></span> HEIC
+                            </div>
+                        </div>
+                    </div>
+                </div>
 
-                <a
-                  id="btn-download"
-                  download="foto_sisadmision_unsa.jpg"
-                  class="mt-6 block w-full bg-green-600 hover:bg-green-700 text-white text-center font-bold py-3 px-4 rounded-lg shadow transition hover:-translate-y-1"
-                >
-                  Descargar Fotografía
-                </a>
+                <!-- Paso 2: Editor con CropperJS -->
+                <div id="editor-step" class="glass-panel rounded-2xl border border-white/10 shadow-2xl bg-dark-800 overflow-hidden hidden">
+                    <div class="border-b border-white/5 p-4 flex justify-between items-center bg-dark-900/50">
+                        <div class="flex items-center gap-3">
+                            <div class="w-2 h-8 bg-cyan-500 rounded-full"></div>
+                            <h3 class="text-white font-semibold">Ajuste de Encuadre</h3>
+                        </div>
+                        <button id="btn-cancel" class="text-gray-400 hover:text-white px-3 py-1 rounded-lg hover:bg-white/5 transition text-sm">Cancelar</button>
+                    </div>
+                    
+                    <div class="bg-black/50 p-4 h-[500px] flex items-center justify-center relative">
+                        <img id="image-to-crop" class="max-w-full max-h-full block" alt="Editor">
+                    </div>
 
-                <button
-                  id="btn-reset"
-                  class="mt-3 block w-full text-gray-500 hover:text-gray-800 text-sm py-2 text-center underline"
-                >
-                  Subir otra foto
-                </button>
-              </div>
-            </div>
-          </div>
+                    <div class="p-6 bg-dark-800 border-t border-white/5 flex flex-col md:flex-row items-center justify-between gap-4">
+                        <p class="text-sm text-gray-400 flex items-center gap-2">
+                            <svg class="w-4 h-4 text-cyan-400" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"/></svg>
+                            Ajusta el recuadro para centrar tu rostro.
+                        </p>
+                        <button id="btn-process" class="w-full md:w-auto px-8 py-3 rounded-xl bg-gradient-to-r from-cyan-500 to-blue-600 hover:from-cyan-400 hover:to-blue-500 text-white font-bold shadow-lg shadow-blue-500/25 transform transition active:scale-95 flex items-center justify-center gap-2">
+                            <svg class="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19.428 15.428a2 2 0 00-1.022-.547l-2.384-.477a6 6 0 00-3.86.517l-.318.158a6 6 0 01-3.86.517L6.05 15.21a2 2 0 00-1.806.547M8 4h8l-1 1v5.172a2 2 0 00.586 1.414l5 5c1.26 1.26.367 3.414-1.415 3.414H4.828c-1.782 0-2.674-2.154-1.414-3.414l5-5A2 2 0 009 10.172V5L8 4z"/></svg>
+                            Procesar Imagen UNSA
+                        </button>
+                    </div>
+                </div>
 
-          <!-- Estado de Carga / Loader -->
-          <div
-            id="loading"
-            class="hidden fixed inset-0 bg-white/80 z-50 flex flex-col items-center justify-center"
-          >
-            <div
-              class="loader ease-linear rounded-full border-4 border-t-4 border-gray-200 h-12 w-12 mb-4"
-            ></div>
-            <p class="text-gray-600 font-semibold" id="loading-text">
-              Procesando imagen...
-            </p>
-          </div>
-        </section>
-      </div>
+                <!-- Paso 3: Resultados -->
+                <div id="result-step" class="glass-panel p-6 rounded-2xl border border-white/10 shadow-2xl bg-dark-800 hidden">
+                    <div class="flex flex-col md:flex-row gap-8 items-stretch">
+                        
+                        <!-- Preview Column -->
+                        <div class="w-full md:w-1/3 flex flex-col items-center">
+                            <div class="relative group">
+                                <div class="absolute -inset-1 bg-gradient-to-r from-cyan-400/50 to-blue-600/50 rounded-lg blur opacity-75 group-hover:opacity-100 transition duration-200"></div>
+                                <div class="relative border-4 border-dark-900 bg-black rounded shadow-2xl overflow-hidden w-[240px] h-[288px]">
+                                    <img id="final-image" class="w-full h-full object-cover">
+                                </div>
+                            </div>
+                            <div class="mt-4 flex items-center gap-2 text-xs text-green-400 bg-green-900/20 px-3 py-1 rounded-full border border-green-500/20">
+                                <span class="w-1.5 h-1.5 bg-green-500 rounded-full animate-pulse"></span>
+                                Listo para subir
+                            </div>
+                        </div>
+
+                        <!-- Details Column -->
+                        <div class="w-full md:w-2/3 flex flex-col justify-center">
+                            <h3 class="text-2xl font-bold text-white mb-2">¡Fotografía Optimizada!</h3>
+                            <p class="text-gray-400 text-sm mb-6">Tu imagen ha sido procesada cumpliendo todos los estándares biométricos del sistema SisAdmisión.</p>
+
+                            <div class="grid grid-cols-2 gap-4 mb-8">
+                                <div class="bg-dark-900/50 p-4 rounded-xl border border-white/5">
+                                    <span class="text-gray-500 text-xs uppercase tracking-wider block mb-1">Dimensiones</span>
+                                    <span class="text-white font-mono text-lg">240 x 288</span>
+                                </div>
+                                <div class="bg-dark-900/50 p-4 rounded-xl border border-white/5">
+                                    <span class="text-gray-500 text-xs uppercase tracking-wider block mb-1">Peso Final</span>
+                                    <span id="final-size" class="font-mono text-lg">--- KB</span>
+                                </div>
+                                <div class="bg-dark-900/50 p-4 rounded-xl border border-white/5">
+                                    <span class="text-gray-500 text-xs uppercase tracking-wider block mb-1">Formato</span>
+                                    <span class="text-white font-mono text-lg">JPG <span class="text-xs text-gray-500">24bit</span></span>
+                                </div>
+                                <div class="bg-dark-900/50 p-4 rounded-xl border border-white/5 relative overflow-hidden">
+                                     <!-- Decoración DPI -->
+                                    <div class="absolute top-0 right-0 p-1 opacity-20">
+                                        <svg class="w-8 h-8 text-blue-500" fill="currentColor" viewBox="0 0 24 24"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-1 17.93c-3.95-.49-7-3.85-7-7.93 0-.62.08-1.21.21-1.79L9 15v1c0 1.1.9 2 2 2v1.93zm6.9-2.54c-.26-.81-1-1.39-1.9-1.39h-1v-3c0-.55-.45-1-1-1H8v-2h2c.55 0 1-.45 1-1V7h2c1.1 0 2-.9 2-2v-.41c2.93 1.19 5 4.06 5 7.41 0 2.08-.8 3.97-2.1 5.39z"/></svg>
+                                    </div>
+                                    <span class="text-gray-500 text-xs uppercase tracking-wider block mb-1">Densidad</span>
+                                    <span class="text-cyan-400 font-bold font-mono text-lg">300 DPI</span>
+                                </div>
+                            </div>
+
+                            <div class="flex gap-3">
+                                <a id="btn-download" href="#" class="flex-1 bg-white text-dark-900 hover:bg-gray-100 font-bold py-3 px-6 rounded-xl shadow-lg transition transform active:scale-95 flex items-center justify-center gap-2">
+                                    <svg class="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-8l-4-4m0 0L8 8m4-4v12"/></svg>
+                                    Descargar Archivo
+                                </a>
+                                <button id="btn-reset" class="px-4 rounded-xl border border-white/10 hover:bg-white/5 text-gray-400 transition" title="Reiniciar">
+                                    <svg class="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 4v5h.582m15.356 2A8.001 8.001 0 004.582 9m0 0H9m11 11v-5h-.581m0 0a8.003 8.003 0 01-15.357-2m15.357 2H15"/></svg>
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Loader Moderno -->
+                <div id="loading" class="hidden absolute inset-0 z-50 bg-dark-900/80 backdrop-blur-sm rounded-2xl flex flex-col items-center justify-center">
+                    <div class="relative w-16 h-16 mb-4">
+                        <div class="absolute inset-0 border-4 border-white/10 rounded-full"></div>
+                        <div class="absolute inset-0 border-4 border-cyan-500 rounded-full border-t-transparent animate-spin"></div>
+                    </div>
+                    <p class="text-white font-medium animate-pulse" id="loading-text">Optimizando píxeles...</p>
+                </div>
+
+            </section>
+        </div>
     </main>
 
-    <footer class="bg-gray-800 text-white text-center py-6 mt-auto">
-      <p class="text-sm text-gray-400">
-        Herramienta no oficial de ayuda al postulante.
-      </p>
-      <p class="text-xs text-gray-500 mt-1">
-        El procesamiento se realiza localmente en tu navegador por privacidad.
-      </p>
+    <footer class="mt-12 py-8 border-t border-white/5 bg-dark-900/50">
+        <div class="container mx-auto px-4 text-center">
+            <p class="text-gray-500 text-sm mb-2">Developed for UNSA Students</p>
+            <div class="flex justify-center gap-4 text-xs text-gray-600">
+                <span>Privacy First (Local Processing)</span>
+                <span>•</span>
+                <span>Open Source</span>
+            </div>
+        </div>
     </footer>
 
-    <!-- Scripts CDN -->
+    <!-- Scripts -->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/cropperjs/1.5.13/cropper.min.js"></script>
     <script src="https://unpkg.com/piexifjs@1.0.6/piexif.js"></script>
-    <!-- Custom JS -->
     <script src="app.js"></script>
-  </body>
+
+</body>
 </html>

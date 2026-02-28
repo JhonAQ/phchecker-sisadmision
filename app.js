@@ -101,7 +101,7 @@ document.addEventListener("DOMContentLoaded", () => {
 
       cropper = new Cropper(imageElement, {
         aspectRatio: TARGET_WIDTH / TARGET_HEIGHT, // 5:6 (0.8333)
-        viewMode: 1, // Restringir el cuadro de recorte dentro del canvas
+        viewMode: 0, // Permitir que el cuadro de recorte salga del canvas (se rellenará con blanco)
         dragMode: "move",
         autoCropArea: 0.8,
         responsive: true,

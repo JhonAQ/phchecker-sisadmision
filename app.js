@@ -210,8 +210,8 @@ document.addEventListener("DOMContentLoaded", () => {
 
       console.log(
         `Compresión: Calidad ${(quality * 100).toFixed(0)}% -> ${sizeKB.toFixed(
-          2
-        )} KB`
+          2,
+        )} KB`,
       );
 
       if (sizeKB <= MAX_SIZE_KB && sizeKB >= MIN_SIZE_KB) {
@@ -237,15 +237,15 @@ document.addEventListener("DOMContentLoaded", () => {
     if (finalSize > MAX_SIZE_KB) {
       throw new Error(
         `No se pudo comprimir a menos de 50KB (Actual: ${finalSize.toFixed(
-          2
-        )} KB). Intenta recortar menos fondo o usar otra foto.`
+          2,
+        )} KB). Intenta recortar menos fondo o usar otra foto.`,
       );
     }
     if (finalSize < MIN_SIZE_KB) {
       throw new Error(
         `La imagen es demasiado ligera (${finalSize.toFixed(
-          2
-        )} KB). Requisito mínimo 4KB.`
+          2,
+        )} KB). Requisito mínimo 4KB.`,
       );
     }
 
@@ -262,7 +262,7 @@ document.addEventListener("DOMContentLoaded", () => {
           resolve(blob);
         },
         "image/jpeg",
-        quality
+        quality,
       );
     });
   }
